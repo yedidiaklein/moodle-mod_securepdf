@@ -10,12 +10,12 @@
 ---------
 ## Please note that you have to install a PHP module that is not needed by Moodle itself.
 - Install php-imagick module on your system.
--- (debian/ubuntu) apt-get install php-imagick
--- (Redhat/Centos) yum install php-imagick
+- (debian/ubuntu) apt-get install php-imagick
+- (Redhat/Centos) yum install php-imagick
 - Configure imagemagick to allow PDF reading, see : https://stackoverflow.com/questions/52703123/override-default-imagemagick-policy-xml
 - Restart php-fpm or your web server.
 - cd [moodle]/mod/
-- git clone git@github.com:yedidiaklein/moodle-mod_securepdf.git securepdf
+- git clone https://github.com/yedidiaklein/moodle-mod_securepdf.git securepdf
 - Go to your moodle Notification Page and install. 
 
 # Use
