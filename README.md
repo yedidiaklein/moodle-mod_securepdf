@@ -1,12 +1,31 @@
 # Secure PDF
 ----------
-- The Secure PDF module allow you to upload a PDF to your course, and block students from downloading it.
+- Secure PDF module allow you to upload a PDF to your course, and prevent students from downloading it.
 - Students will get an image of each page and not the PDF itself.
-- The image are protected from "right click" to save the image.
+- The images are protected from "right click" to prevent saving the image.
 - Module completion will be set only while user saw all pages of document.
 - You must know that technical persons will be able to download the images (one by one)
 
+# Install
+---------
+## Please note that you have to install a PHP module that is not needed by Moodle itself.
+- Install php-imagick module on your system.
+-- (debian/ubuntu) apt-get install php-imagick
+-- (Redhat/Centos) yum install php-imagick
+- Configure imagemagick to allow PDF reading, see : https://stackoverflow.com/questions/52703123/override-default-imagemagick-policy-xml
+- Restart php-fpm or your web server.
+- cd [moodle]/mod/
+- git clone git@github.com:yedidiaklein/moodle-mod_securepdf.git securepdf
+- Go to your moodle Notification Page and install. 
+
 # Use
+-----
+- Add securepdf module in your course.
+- Add a PDF fle to the module and watch it.
+- Note that first view of page will be slow (20-20 seconds), then it's will cached for other users.
+- Enjoy! 
+
+# License
 ---
 - See the LICENSE file for licensing details.
 
