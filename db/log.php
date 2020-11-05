@@ -18,7 +18,7 @@
  * Definition of log events
  *
  * @package    mod_securepdf
- * @copyright  2017 Yedidia  <yedidia@openapp.co.il>
+ * @copyright  2020 Yedidia  <yedidia@openapp.co.il>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

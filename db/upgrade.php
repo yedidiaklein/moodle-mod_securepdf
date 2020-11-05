@@ -25,7 +25,7 @@
  * here will all be database-neutral, using the functions defined in DLL libraries.
  *
  * @package    mod_securepdf
- * @copyright  2017 Yedidia Klein <yedidia@openapp.co.il>
+ * @copyright  2020 Yedidia Klein <yedidia@openapp.co.il>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -124,7 +124,7 @@ function xmldb_securepdf_upgrade($oldversion) {
         upgrade_mod_savepoint(true, 2017060403, 'securepdf');
     }
 
-	if ($oldversion < 2017060404) {
+    if ($oldversion < 2017060404) {
 
         // Define table securepdfbookmarks to be created.
         $table = new xmldb_table('securepdfbookmarks');
