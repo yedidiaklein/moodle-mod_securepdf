@@ -1,0 +1,17 @@
+<div class=mod_securepdf_pages>{{#str}}page, mod_securepdf{{/str}} {{page}} / {{total}}</div>
+<div class=mod_securepdf_pageslinks>
+
+{{#previous}}
+    <a href="{{previousurl}}"> << </a>
+{{/previous}}
+
+{{#pages}}
+   <a href="{{url}}">  {{page}}  </a>
+{{/pages}}
+
+{{#next}}
+    <a href="{{nexturl}}"> >> </a>
+{{/next}}
+
+</div>
+<img src="data:image/png;base64, {{base64}}" alt="Page {{page}}" galleryimg="no" onContextMenu="return false;">
