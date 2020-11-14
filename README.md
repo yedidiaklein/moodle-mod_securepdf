@@ -4,7 +4,7 @@
 - Students will get an image of each page and not the PDF itself.
 - The images are protected from "right click" to prevent saving the image.
 - Module completion will be set only while user saw all pages of document.
-- You must know that technical persons will be able to download the images (one by one)
+- You must know that people with web development skills will be able to download the images (one by one)
 
 # Install
 ---------
