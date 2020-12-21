@@ -34,7 +34,7 @@ class backup_securepdf_activity_structure_step extends backup_activity_structure
         // Define each element separated.
         $securepdf = new backup_nested_element('securepdf', array('id'), array(
             'name', 'intro', 'introformat', 'inline',
-            'file', 'timecreated', 'timemodified'));
+            'fileid', 'timecreated', 'timemodified'));
 
         // Define sources.
         $securepdf->set_source_table('securepdf',

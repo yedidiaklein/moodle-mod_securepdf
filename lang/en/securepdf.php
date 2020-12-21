@@ -44,3 +44,4 @@ $string['nosuchpage'] = 'Error - No such page!';
 $string['install_imagick'] = 'PHP-Imagick need to be installed, otherwise you and student won\'t be able to see the content';
 $string['imagick_pdf_policy'] = 'You must set the policy of ImageMagick to allow PDF read. See https://stackoverflow.com/questions/52703123/override-default-imagemagick-policy-xml';
 $string['cachedef_pages'] = 'Pages from PDF cache';
+$string['imagickrequired'] = 'PHP Imagemagick extension is required';

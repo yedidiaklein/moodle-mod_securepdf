@@ -112,7 +112,7 @@ class securepdf {
         $add->courseid = $formdata->course;
         $add->intro = $formdata->intro;
         $add->introformat = $formdata->introformat;
-        $add->file = 1;
+        $add->fileid = 1;
 
         $returnid = $DB->insert_record('securepdf', $add);
         $this->instance = $DB->get_record('securepdf',

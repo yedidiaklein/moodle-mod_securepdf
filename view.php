@@ -51,7 +51,7 @@ if (!securepdf::check_imagick()) {
 
 // Update page views in table - in order to be able to set completion.
 $pageview = ['module' => $cm->id,
-             'user' => $USER->id,
+             'userid' => $USER->id,
              'page' => $page
             ];
 $exist = $DB->get_record('securepdf_pageviews', $pageview);
@@ -119,7 +119,7 @@ if (!$data || !$numpages) {
 // It's here and not in top of this file because we need the total number of pages in this PDF.
 $completion = new completion_info($course);
 // Check if user viewed all pages.
-$allpages = $DB->count_records('securepdf_pageviews', ['module' => $cm->id, 'user' => $USER->id]);
+$allpages = $DB->count_records('securepdf_pageviews', ['module' => $cm->id, 'userid' => $USER->id]);
 if ($allpages == $numpages) {
     $completion->set_module_viewed($cm);
 }

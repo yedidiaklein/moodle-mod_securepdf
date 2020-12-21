@@ -216,7 +216,7 @@ function securepdf_get_coursemodule_info($coursemodule) {
     global $PAGE, $DB, $OUTPUT, $CFG;
 
     $dbparams = array('id' => $coursemodule->instance);
-    $fields = 'id, name, intro, introformat, file';
+    $fields = 'id, name, intro, introformat, fileid';
 
     if (!$securepdf = $DB->get_record('securepdf', $dbparams, $fields)) {
         return false;
