@@ -22,7 +22,7 @@
 -----
 - Add securepdf module in your course.
 - Add a PDF fle to the module and watch it.
-- Note that first view of page will be slow (20-20 seconds), then it's will cached for other users.
+- Note that first view of page will be slow (20-25 seconds), then it's will cached for other users.
 - Enjoy! 
 
 # License
