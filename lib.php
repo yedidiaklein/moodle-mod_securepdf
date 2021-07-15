@@ -80,6 +80,11 @@ function securepdf_add_instance(stdClass $data,
     $context = context_module::instance($data->coursemodule);
     $securepdf = new securepdf($context, null, null);
 
+    // Create cache immediately after upload (Adhoc task)
+    $cache = new \mod_securepdf\task\create_cache();
+    $cache->set_custom_data(['moduleid' => $data->coursemodule]);
+    \core\task\manager::queue_adhoc_task($cache);
+
     return $securepdf->add_instance($data);
 }
 

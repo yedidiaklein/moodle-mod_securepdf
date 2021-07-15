@@ -27,9 +27,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version  = 2020101201;
+$plugin->version  = 2021071401;
 $plugin->requires = 2016052301;
 $plugin->cron     = 0;
 $plugin->component = 'mod_securepdf';
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release  = '0.9';
+$plugin->release  = '0.99';

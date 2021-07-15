@@ -79,6 +79,13 @@ $numpages = $cache->get($cm->id);
 
 // If there is no cache - we should parse the PDF and write cache.
 if (!$data || !$numpages) {
+    // First call the adhoc task for generating the cache of all pages
+    // This situation happen while cache was purged
+    // otherwise the cache is created on create/update resource. 
+    $adhoccache = new \mod_securepdf\task\create_cache();
+    $adhoccache->set_custom_data(['moduleid' => $cm->id]);
+    \core\task\manager::queue_adhoc_task($adhoccache);    
+
     $fs = get_file_storage();
     $files = $fs->get_area_files($context->id, 'mod_securepdf', 'content', 0, 'sortorder', false);
     foreach ($files as $file) {
@@ -105,7 +112,6 @@ if (!$data || !$numpages) {
         $im->setImageAlphaChannel(Imagick::VIRTUALPIXELMETHOD_WHITE);
         $img = $im->getImageBlob();
         $base64 = base64_encode($img);
-        $result = $cache->set($cm->id . '_' . $page, $base64);
     } else {
         $error = get_string('nosuchpage', 'mod_securepdf');
     }
