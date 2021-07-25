@@ -81,10 +81,10 @@ $numpages = $cache->get($cm->id);
 if (!$data || !$numpages) {
     // First call the adhoc task for generating the cache of all pages
     // This situation happen while cache was purged
-    // otherwise the cache is created on create/update resource. 
+    // otherwise the cache is created on create/update resource.
     $adhoccache = new \mod_securepdf\task\create_cache();
     $adhoccache->set_custom_data(['moduleid' => $cm->id]);
-    \core\task\manager::queue_adhoc_task($adhoccache);    
+    \core\task\manager::queue_adhoc_task($adhoccache);
 
     $fs = get_file_storage();
     $files = $fs->get_area_files($context->id, 'mod_securepdf', 'content', 0, 'sortorder', false);

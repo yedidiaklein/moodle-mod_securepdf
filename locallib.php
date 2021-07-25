@@ -206,7 +206,7 @@ class securepdf {
             $cache->delete($cmid);
         }
 
-        // Create cache for new file
+        // Create cache for new file.
         $cache = new \mod_securepdf\task\create_cache();
         $cache->set_custom_data(['moduleid' => $cmid]);
         \core\task\manager::queue_adhoc_task($cache);

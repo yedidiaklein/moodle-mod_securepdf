@@ -28,13 +28,12 @@ defined('MOODLE_INTERNAL') || die();
 
 class create_cache extends \core\task\adhoc_task
 {
-    public function execute()
-    {
+    public function execute() {
         $data = $this->get_custom_data();
         $moduleid = $data->moduleid;
-        // Init cache object
+        // Init cache object.
         $cache = \cache::make('mod_securepdf', 'pages');
-        // Read Module file
+        // Read Module file.
         $context = \context_module::instance($moduleid);
         $fs = get_file_storage();
         $files = $fs->get_area_files($context->id, 'mod_securepdf', 'content', 0, 'sortorder', false);
@@ -42,7 +41,7 @@ class create_cache extends \core\task\adhoc_task
             $content = $file->get_content();
         }
 
-        // Init imagick object
+        // Init imagick object.
         $im = new \imagick();
 
         $settings = get_config('securepdf');
@@ -63,8 +62,7 @@ class create_cache extends \core\task\adhoc_task
             $img = $im->getImageBlob();
             $base64 = base64_encode($img);
             $result = $cache->set($moduleid . '_' . $page, $base64);
-        } 
-        
+        }
         $im->destroy();
     }
 }
