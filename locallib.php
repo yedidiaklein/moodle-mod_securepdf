@@ -370,4 +370,61 @@ class securepdf {
             return true;
         }
     }
+
+    /**
+     * Util function to reverse hebrew strings only from string.
+     *
+     * @param string $text mixed hebrew and english text.
+     *
+     * @return string reversed hebrew text.
+     */
+    public function reversehebrew($text) {
+        $words = array_reverse(explode(' ', $text));
+        foreach ($words as $index => $word) {
+            if ($this->ishebrew($word)) {
+                $words[$index] = $this->mbstrrev($word);
+            }
+        }
+        return join(' ', $words);
+    }
+
+    /**
+     * Util function to determine if a word contains hebrew characters.
+     *
+     * @param string $text mixed hebrew and english word.
+     *
+     * @return true if word contains hebrew characters, false if not.
+     */
+
+    private function ishebrew($text) {
+        for ($i = 0, $cnt = strlen($text); $i < $cnt; ++$i) {
+            if (ord($text[$i]) > 127) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Util function to reverse multi bytes string.
+     *
+     * @param string $string string to invert.
+     * @param string $encoding encoding of the string.
+     *
+     * @return string reversed string.
+     */
+
+    private function mbstrrev($string, $encoding = null) {
+        if ($encoding === null) {
+            $encoding = mb_detect_encoding($string);
+        }
+
+        $length = mb_strlen($string, $encoding);
+        $reversed = '';
+        while ($length-- > 0) {
+            $reversed .= mb_substr($string, $length, 1, $encoding);
+        }
+
+        return $reversed;
+    }
 }

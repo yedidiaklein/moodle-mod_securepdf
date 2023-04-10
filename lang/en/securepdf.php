@@ -45,3 +45,13 @@ $string['install_imagick'] = 'PHP-Imagick need to be installed, otherwise you an
 $string['imagick_pdf_policy'] = 'You must set the policy of ImageMagick to allow PDF read. See https://stackoverflow.com/questions/52703123/override-default-imagemagick-policy-xml';
 $string['cachedef_pages'] = 'Pages from PDF cache';
 $string['imagickrequired'] = 'PHP Imagemagick extension is required';
+
+$string['addusername'] = 'Add username to each image';
+$string['addusername_explain'] = 'Add username to each image of the PDF';
+$string['addsiteaddress'] = 'Add site name to image';
+$string['addsiteaddress_explain'] = 'Add site name to each image of the PDF';
+$string['usernameposition'] = 'Username and site name position';
+$string['usernameposition_explain'] = 'Set the position of username and site name on the image';
+$string['top'] = 'Top';
+$string['bottom'] = 'Bottom';
+$string['middle'] = 'Middle';

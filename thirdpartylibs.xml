@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<libraries>
+    <library>
+        <url>https://fonts.google.com/noto/specimen/Noto+Sans+Hebrew/about</url>
+        <location>font</location>
+        <name>Noto Google Font</name>
+        <version>N/A</version>
+        <license>OFL</license>
+        <licenseversion>1.1</licenseversion>
+    </library>
+</libraries>

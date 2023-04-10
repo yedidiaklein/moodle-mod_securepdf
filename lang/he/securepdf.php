@@ -44,3 +44,13 @@ $string['install_imagick'] = 'נדרש להתקין רכיב PHP-Imagick - אח�
 $string['imagick_pdf_policy'] = 'יש לאפשר את ה-policy עבור קריאת PDF ב-ImageMagick - ראו https://stackoverflow.com/questions/52703123/override-default-imagemagick-policy-xml';
 $string['cachedef_pages'] = 'מטמוני הדפים מתוך ה-PDF';
 $string['imagickrequired'] = 'רכיב PHP Imagemagick מוכרח להיות מותקן';
+
+$string['addusername'] = 'הוספת שם משתמש לכל תמונה';
+$string['addusername_explain'] = 'הוספת שם משתמש לכל תמונה מתוך ה-PDF';
+$string['addsiteaddress'] = 'הוספת שם האתר לכל תמונה';
+$string['addsiteaddress_explain'] = 'הוספת כתובת אתר לכל תמונה מתוך ה-PDF';
+$string['usernameposition'] = 'מיקום שם המשתמש ושם האתר בתמונה';
+$string['usernameposition_explain'] = 'מיקום שם המשתמש ושם האתר בתמונה';
+$string['top'] = 'למעלה';
+$string['bottom'] = 'למטה';
+$string['middle'] = 'באמצע';

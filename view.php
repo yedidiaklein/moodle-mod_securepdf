@@ -146,6 +146,44 @@ if (($page + 1) < $numpages) {
 $nexturl = $CFG->wwwroot . '/mod/securepdf/view.php?id=' . $id . '&page=' . $next;
 $previousurl = $CFG->wwwroot . '/mod/securepdf/view.php?id=' . $id . '&page=' . ($page - 1);
 
+// Add username and site name to the image.
+$text = '';
+if ($settings->addusername) {
+    $text .= $USER->firstname . ' ' . $USER->lastname . ' (' . $USER->username . ')';
+}
+if ($settings->addsiteaddress) {
+    if ($text != '') {
+        $text .= ' - ';
+    }
+    $text .= $SITE->fullname;
+}
+// Reverse hebrew if needed.
+$text = $securepdf->reversehebrew($text);
+
+if ($text != '') {
+    $gd = imagecreatefromstring(base64_decode($base64));
+    $color = imagecolorallocate($gd, 0, 0, 0);
+    $white = imagecolorallocate($gd, 255, 255, 255);
+    $font = $CFG->dirroot . '/mod/securepdf/font/NotoSans.ttf';
+    $size = 12;
+    $angle = 0;
+    $bbox = imagettfbbox($size, $angle, $font, $text);
+    $x = $bbox[0] + round(imagesx($gd) / 2) - round($bbox[4] / 2);
+    if ($settings->usernameposition == 'top') {
+        $y = 15;
+    } else if ($settings->usernameposition == 'middle') {
+        $y = round(imagesy($gd) / 2) - round($bbox[5] / 2);
+    } else {
+        $y = imagesy($gd) - 20;
+    }
+    imagettftext($gd, $size, $angle, $x, $y, $color, $font, $text);
+    // Add white shadow to the text (for dark documents).
+    imagettftext($gd, $size, $angle, $x + 1, $y + 1, $white, $font, $text);
+    ob_start();
+    imagejpeg($gd);
+    $base64 = base64_encode(ob_get_clean());
+    imagedestroy($gd);
+}
 echo $OUTPUT->render_from_template('mod_securepdf/imageview',
     [   'base64' => $base64,
         'page' => $page + 1,
