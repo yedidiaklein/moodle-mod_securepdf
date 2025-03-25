@@ -26,15 +26,6 @@ defined('MOODLE_INTERNAL') || die();
 /**
  * The page_view event class.
  *
- * @property-read array $other {
- *      Extra information about event.
- *
- *      - PUT INFO HERE
- * }
- *
- * @since     Moodle MOODLEVERSION
- * @copyright 2020 Yedidia@openapp.co.il
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  **/
 class page_view extends \core\event\base {
     protected function init() {
@@ -57,25 +48,5 @@ class page_view extends \core\event\base {
 
     public function get_url() {
         return new \moodle_url('/mod/securepdf/view.php', array('id' => $this->contextinstanceid));
-    }
-
-    public function get_legacy_logdata() {
-        // Override if you are migrating an add_to_log() call.
-        return array($this->courseid, 'securepdf', 'LOGACTION',
-            '...........',
-            $this->objectid, $this->contextinstanceid);
-    }
-
-    public static function get_legacy_eventname() {
-        // Override ONLY if you are migrating events_trigger() call.
-        return 'MYPLUGIN_OLD_EVENT_NAME';
-    }
-
-    protected function get_legacy_eventdata() {
-        // Override if you migrating events_trigger() call.
-        $data = new \stdClass();
-        $data->id = $this->objectid;
-        $data->userid = $this->relateduserid;
-        return $data;
     }
 }
