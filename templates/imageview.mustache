@@ -1,3 +1,14 @@
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentPage = parseInt(urlParams.get('page'));
+        const selector = document.querySelector('select');
+        if (selector) {
+            selector.value = selector.options[currentPage]?.value;
+        }
+    });
+</script>
+
 <div class=mod_securepdf_pages>{{#str}}page, mod_securepdf{{/str}} {{page}} / {{total}}</div>
 <div class=mod_securepdf_pageslinks>
 
@@ -5,9 +16,11 @@
     <a href="{{previousurl}}"> << </a>
 {{/previous}}
 
-{{#pages}}
-   <a href="{{url}}">  {{page}}  </a>
-{{/pages}}
+<select onchange="location = this.value;">
+    {{#pages}}
+        <option value="{{url}}" {{#current}}selected="selected"{{/current}}>{{page}}</option>
+    {{/pages}}
+</select>
 
 {{#next}}
     <a href="{{nexturl}}"> >> </a>
