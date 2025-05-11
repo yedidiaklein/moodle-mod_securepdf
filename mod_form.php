@@ -68,6 +68,14 @@ class mod_securepdf_mod_form extends moodleform_mod {
 
         $mform->addElement('filemanager', 'uploaded', get_string('selectfiles'), null, $filemanageroptions);
 
+        // Add a checkbox to allow the user to select if they want to show all slides in a single page
+        $mform->addElement('checkbox', 'onepageview', get_string('showall', 'securepdf'));
+        $mform->setDefault('onepageview', 0);
+
+        // Add a checkbox to allowdownload the file
+        $mform->addElement('checkbox', 'allowdownload', get_string('allowdownload', 'securepdf'));
+        $mform->setDefault('allowdownload', 0);
+
         // Standard elements, common to all modules.
         $this->standard_coursemodule_elements();
 

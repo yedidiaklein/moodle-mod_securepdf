@@ -113,6 +113,16 @@ class securepdf {
         $add->intro = $formdata->intro;
         $add->introformat = $formdata->introformat;
         $add->fileid = 1;
+        if (isset($formdata->onepageview)) {
+            $add->onepageview = 1;
+        } else {
+            $add->onepageview = 0;
+        }
+        if (isset($formdata->allowdownload)) {
+            $add->allowdownload = 1;
+        } else {
+            $add->allowdownload = 0;
+        }
 
         $returnid = $DB->insert_record('securepdf', $add);
         $this->instance = $DB->get_record('securepdf',
@@ -189,6 +199,17 @@ class securepdf {
         $update->intro = $formdata->intro;
         $update->introformat = $formdata->introformat;
         $update->file = 1;
+        if (isset($formdata->onepageview)) {
+            $update->onepageview = 1;
+        } else {
+            $update->onepageview = 0;
+        }
+        if (isset($formdata->allowdownload)) {
+            $update->allowdownload = 1;
+        } else {
+            $update->allowdownload = 0;
+        }
+        
 
         $result = $DB->update_record('securepdf', $update);
         $this->instance = $DB->get_record('securepdf',
@@ -371,60 +392,4 @@ class securepdf {
         }
     }
 
-    /**
-     * Util function to reverse hebrew strings only from string.
-     *
-     * @param string $text mixed hebrew and english text.
-     *
-     * @return string reversed hebrew text.
-     */
-    public function reversehebrew($text) {
-        $words = array_reverse(explode(' ', $text));
-        foreach ($words as $index => $word) {
-            if ($this->ishebrew($word)) {
-                $words[$index] = $this->mbstrrev($word);
-            }
-        }
-        return join(' ', $words);
-    }
-
-    /**
-     * Util function to determine if a word contains hebrew characters.
-     *
-     * @param string $text mixed hebrew and english word.
-     *
-     * @return true if word contains hebrew characters, false if not.
-     */
-
-    private function ishebrew($text) {
-        for ($i = 0, $cnt = strlen($text); $i < $cnt; ++$i) {
-            if (ord($text[$i]) > 127) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Util function to reverse multi bytes string.
-     *
-     * @param string $string string to invert.
-     * @param string $encoding encoding of the string.
-     *
-     * @return string reversed string.
-     */
-
-    private function mbstrrev($string, $encoding = null) {
-        if ($encoding === null) {
-            $encoding = mb_detect_encoding($string);
-        }
-
-        $length = mb_strlen($string, $encoding);
-        $reversed = '';
-        while ($length-- > 0) {
-            $reversed .= mb_substr($string, $length, 1, $encoding);
-        }
-
-        return $reversed;
-    }
 }

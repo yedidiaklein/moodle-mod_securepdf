@@ -42,6 +42,38 @@ function xmldb_securepdf_upgrade($oldversion) {
 
     $dbman = $DB->get_manager(); // Loads ddl manager and xmldb classes.
 
+    // add onepageview field to securepdf table.
+    if ($oldversion < 2025050400) {
+
+        // Define field onepageview to be added to securepdf.
+        $table = new xmldb_table('securepdf');
+        $field = new xmldb_field('onepageview', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0', 'introformat');
+
+        // Conditionally launch add field onepageview.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Securepdf savepoint reached.
+        upgrade_mod_savepoint(true, 2025050400, 'securepdf');
+    }
+
+       // add onepageview field to securepdf table.
+       if ($oldversion < 2025070500) {
+
+        // Define field onepageview to be added to securepdf.
+        $table = new xmldb_table('securepdf');
+        $field = new xmldb_field('allowdownload', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0', 'onepageview');
+
+        // Conditionally launch add field onepageview.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Securepdf savepoint reached.
+        upgrade_mod_savepoint(true, 2025070500, 'securepdf');
+    }
+
     // Final return of upgrade result (true, all went good) to Moodle.
     return true;
 }

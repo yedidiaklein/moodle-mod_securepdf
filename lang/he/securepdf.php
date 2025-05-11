@@ -54,3 +54,11 @@ $string['usernameposition_explain'] = 'מיקום שם המשתמש ושם הא�
 $string['top'] = 'למעלה';
 $string['bottom'] = 'למטה';
 $string['middle'] = 'באמצע';
+$string['showall'] = 'הצגת כל השקפים בעמוד אחד ארוך';
+$string['allowdownload'] = 'אפשר הורדת PDF המקורי לתלמידים';
+$string['downloadpdf'] = 'הורדת PDF';
+$string['notallowedtodownload'] = 'לא מורשה להוריד את ה-PDF';
+$string['nofile'] = 'לא נמצא קובץ PDF';
+$string['nocacheyet'] = 'לא נמצא מטמון לדפים כרגע - אנא המתינו....';
+$string['nocache'] = 'קיימת בעייה עם המטמון או עם מנגנון ההרצה - אנא פנו למנהל המערכת';
+

@@ -55,3 +55,11 @@ $string['usernameposition_explain'] = 'Set the position of username and site nam
 $string['top'] = 'Top';
 $string['bottom'] = 'Bottom';
 $string['middle'] = 'Middle';
+$string['showall'] = 'Show all slides in one long page ';
+$string['allowdownload'] = 'Allow download original PDF to students';
+$string['downloadpdf'] = 'Download PDF';
+$string['notallowedtodownload'] = 'You are not allowed to download the PDF';
+$string['nofile'] = 'No file found';
+$string['nocacheyet'] = 'No cache yet - Please wait...';
+$string['nocache'] = 'There is a problem with the cache or with cron - please contact the administrator';
+

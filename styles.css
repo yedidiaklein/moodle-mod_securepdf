@@ -5,3 +5,13 @@
 .mod_securepdf_pageslinks a {
     margin-left: 3px;
 }
+
+.mod_securepdf_slide {
+    max-width: 100%;
+}
+
+.mod_securepdf_single {
+    border: 1px solid #ccc; /* Light gray border */
+    padding: 10px;         /* Add some padding inside the border */
+    border-radius: 5px;    /* Optional: Rounded corners */
+}
