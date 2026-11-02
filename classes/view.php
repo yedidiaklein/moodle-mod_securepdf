@@ -79,7 +79,7 @@ class view {
 
         $base64 = '';
 
-        if ($page > 0) {
+        if ($page >= 0) {
             $im->setIteratorIndex($page);
             $im->setImageFormat('jpeg');
             $im->setImageAlphaChannel(\Imagick::VIRTUALPIXELMETHOD_WHITE);

@@ -149,7 +149,7 @@ if ($onepageview) {
 
         $numpagesdata = \mod_securepdf\view::getnumpages($context, $settings->resolution, $cm, $page);
         $numpages = $numpagesdata['numpages'];
-        $bas64 = $numpagesdata['data'];
+        $base64 = $numpagesdata['data'];
 
         if ($page > $numpages) {
             $error = get_string('nosuchpage', 'mod_securepdf');
