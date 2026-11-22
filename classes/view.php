@@ -98,6 +98,8 @@ class view {
         if ($page >= 0) {
             $im->setIteratorIndex($page);
             $im->setImageFormat('jpeg');
+            // read_into_imagick() forces the wand format to PDF: without this getImageBlob() returns PDF bytes.
+            $im->setFormat('jpeg');
             $im->setImageAlphaChannel(\Imagick::VIRTUALPIXELMETHOD_WHITE);
             $img = $im->getImageBlob();
             $base64 = base64_encode($img);

@@ -78,6 +78,8 @@ class create_cache extends \core\task\adhoc_task {
             mtrace('[mod_securepdf] Caching page ' . $page . ' of module ' . $moduleid);
             $im->setIteratorIndex($page);
             $im->setImageFormat('jpeg');
+            // read_into_imagick() forces the wand format to PDF: without this getImageBlob() returns PDF bytes.
+            $im->setFormat('jpeg');
             $im->setImageAlphaChannel(\Imagick::VIRTUALPIXELMETHOD_WHITE);
             $img = $im->getImageBlob();
             $base64 = base64_encode($img);
