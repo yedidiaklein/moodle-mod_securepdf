@@ -106,7 +106,22 @@ class mod_securepdf_mod_form extends moodleform_mod {
      * @return array eventual errors indexed by the field name
      */
     public function validation($data, $files) {
-        $errors = [];
+        global $USER;
+        $errors = parent::validation($data, $files);
+
+        // Check the real content of the uploaded file, not only its extension.
+        // A PostScript file renamed to .pdf must never reach ImageMagick.
+        if (!empty($data['uploaded'])) {
+            $fs = get_file_storage();
+            $usercontext = context_user::instance($USER->id);
+            $draftfiles = $fs->get_area_files($usercontext->id, 'user', 'draft', $data['uploaded'], 'id', false);
+            foreach ($draftfiles as $file) {
+                if (!\mod_securepdf\pdf_validator::is_pdf_file($file)) {
+                    $errors['uploaded'] = get_string('notapdf', 'mod_securepdf');
+                    break;
+                }
+            }
+        }
         return $errors;
     }
 }

@@ -101,7 +101,7 @@ class securepdf {
             $options = array('subdirs' => false);
             file_save_draft_area_files($draftitemid, $context->id, 'mod_securepdf', 'content', 0, $options);
         }
-        $file = $fs->get_area_files($context->id, 'mod_securepdf', 'content', 0, 'sortorder', false);
+        self::validate_area_files($context);
 
         // Add the database record.
         $add = new stdClass();
@@ -189,7 +189,7 @@ class securepdf {
             $options = array('subdirs' => false);
             file_save_draft_area_files($draftitemid, $context->id, 'mod_securepdf', 'content', 0, $options);
         }
-        $file = $fs->get_area_files($context->id, 'mod_securepdf', 'content', 0, 'sortorder', false);
+        self::validate_area_files($context);
 
         $update = new stdClass();
         $update->id = $formdata->instance;
@@ -392,4 +392,23 @@ class securepdf {
         }
     }
 
+    /**
+     * Make sure every file stored in the activity is a real PDF.
+     *
+     * The form already validates uploads; this is a second check for other
+     * paths (web services, scripts) so a non-PDF never gets processed.
+     *
+     * @param context $context The module context.
+     * @throws moodle_exception If a stored file is not a PDF.
+     */
+    public static function validate_area_files(context $context) {
+        $fs = get_file_storage();
+        $files = $fs->get_area_files($context->id, 'mod_securepdf', 'content', 0, 'sortorder', false);
+        foreach ($files as $file) {
+            if (!\mod_securepdf\pdf_validator::is_pdf_file($file)) {
+                $fs->delete_area_files($context->id, 'mod_securepdf', 'content');
+                throw new moodle_exception('notapdf', 'mod_securepdf');
+            }
+        }
+    }
 }

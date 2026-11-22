@@ -62,4 +62,4 @@ $string['notallowedtodownload'] = 'You are not allowed to download the PDF';
 $string['nofile'] = 'No file found';
 $string['nocacheyet'] = 'No cache yet - Please wait...';
 $string['nocache'] = 'There is a problem with the cache or with cron - please contact the administrator';
-
+$string['notapdf'] = 'The uploaded file is not a valid PDF document. Only real PDF files are accepted.';

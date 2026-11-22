@@ -55,20 +55,35 @@ class view {
      * @return array
      */
     public static function getnumpages($context, $resolution, $cm, $page = 0) {
+        global $OUTPUT;
         $fs = get_file_storage();
         $files = $fs->get_area_files($context->id, 'mod_securepdf', 'content', 0, 'sortorder', false);
+        $content = null;
         foreach ($files as $file) {
+            // Never hand a non-PDF file (e.g. PostScript renamed to .pdf) to ImageMagick.
+            if (!pdf_validator::is_pdf_file($file)) {
+                echo $OUTPUT->header();
+                \core\notification::error(get_string('notapdf', 'mod_securepdf'));
+                echo $OUTPUT->footer();
+                die();
+            }
             $content = $file->get_content();
         }
+        if ($content === null) {
+            echo $OUTPUT->header();
+            \core\notification::error(get_string('nofile', 'mod_securepdf'));
+            echo $OUTPUT->footer();
+            die();
+        }
 
-        $im = new \imagick();
+        $im = new \Imagick();
         $im->setResolution($resolution, $resolution);
         try {
-            $im->readImageBlob($content);
-        } catch (Exception $e) {
+            pdf_validator::read_into_imagick($im, $content);
+        } catch (\Exception $e) {
             echo $OUTPUT->header();
             \core\notification::error(get_string('imagick_pdf_policy', 'mod_securepdf'));
-            echo $e;
+            debugging($e->getMessage(), DEBUG_DEVELOPER);
             echo $OUTPUT->footer();
             die();
         }
