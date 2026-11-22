@@ -17,7 +17,7 @@
 /**
  * The page_view event.
  *
- * @package    securepdf
+ * @package    mod_securepdf
  * @copyright  2017 Yedidia@openapp.co.il
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

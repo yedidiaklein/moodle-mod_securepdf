@@ -1,4 +1,4 @@
-define(['jquery'], function($) {
+define([], function() {
     return {
         init: function(counterParam) {
             // Get the current URL.

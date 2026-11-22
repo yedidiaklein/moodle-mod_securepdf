@@ -1,17 +1,50 @@
-<div class=mod_securepdf_pages>{{#str}}page, mod_securepdf{{/str}} {{page}} / {{total}}</div>
-<div class=mod_securepdf_pageslinks>
+{{!
+    This file is part of Moodle - http://moodle.org/
 
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template mod_securepdf/imageview
+
+    One PDF page as an image, with page navigation.
+
+    Example context (json):
+    {
+        "page": 2,
+        "total": 3,
+        "previous": true,
+        "previousurl": "https://example.com/mod/securepdf/view.php?id=1&page=0",
+        "next": true,
+        "nexturl": "https://example.com/mod/securepdf/view.php?id=1&page=2",
+        "pages": [
+            {"page": 1, "url": "https://example.com/mod/securepdf/view.php?id=1&page=0"},
+            {"page": 2, "url": "https://example.com/mod/securepdf/view.php?id=1&page=1"},
+            {"page": 3, "url": "https://example.com/mod/securepdf/view.php?id=1&page=2"}
+        ],
+        "base64": "R0lGODlhAQABAAAAACw="
+    }
+}}
+<div class="mod_securepdf_pages">{{#str}}page, mod_securepdf{{/str}} {{page}} / {{total}}</div>
+<div class="mod_securepdf_pageslinks">
 {{#previous}}
-    <a href="{{previousurl}}"> << </a>
+    <a href="{{previousurl}}"> &lt;&lt; </a>
 {{/previous}}
-
 {{#pages}}
-   <a href="{{url}}">  {{page}}  </a>
+    <a href="{{url}}"> {{page}} </a>
 {{/pages}}
-
 {{#next}}
-    <a href="{{nexturl}}"> >> </a>
+    <a href="{{nexturl}}"> &gt;&gt; </a>
 {{/next}}
-
 </div>
-<img class="mod_securepdf_slide" src="data:image/png;base64, {{base64}}" alt="Page {{page}}" galleryimg="no" onContextMenu="return false;">
+<img class="mod_securepdf_slide" src="data:image/jpeg;base64,{{base64}}" alt="Page {{page}}" oncontextmenu="return false;">

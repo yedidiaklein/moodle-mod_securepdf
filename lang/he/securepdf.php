@@ -23,42 +23,37 @@
  */
 
 defined('MOODLE_INTERNAL') || die();
-$string['modulename'] = 'PDF מאובטח';
-$string['modulenameplural'] = 'PDF מאובטחים';
-$string['modulename_help'] = 'השתמשו במודול PDF מאובטח כדי להגן על חומרי הלמידה שלכם, התלמיד לא יוכל להוריד את ה-PDF אלא רק יוצג לו עמוד בתצורת תמונה בכל צפייה בעמוד ללא אפשרות מקש ימני ושמירת התמונה.';
 
-$string['securepdf:addinstance'] = 'הוספת PDF מאובטח חדש';
-$string['securepdf:view'] = 'תצוגת PDF מאובטח';
-
-$string['pluginadministration'] = 'ניהול מנגנון PDF מאובטח';
-$string['pluginname'] = 'PDF מאובטח';
-
-$string['eventpage_view'] = 'נצפה עמוד מרכיב PDF מאובטח';
-
-$string['resolution'] = 'ברירת מחדל לרזולוציה של תמונה';
-$string['resolution_explain'] = 'דרך משתנה זה ניתן לשלוט באיכות התמונה שנוצרת מתוך ה-PDF, שימו לב שאם יש פה רזולוציה גבוהה - טעינת העמוד לצפייה איטית יותר.';
-
-$string['page'] = 'עמוד';
-$string['nosuchpage'] = 'שגיאה - אין עמוד כזה...';
-$string['install_imagick'] = 'נדרש להתקין רכיב PHP-Imagick - אחרת אתה והתלמידים לא תוכלו לצפות בתוכן';
-$string['imagick_pdf_policy'] = 'יש לאפשר את ה-policy עבור קריאת PDF ב-ImageMagick - ראו https://stackoverflow.com/questions/52703123/override-default-imagemagick-policy-xml';
-$string['cachedef_pages'] = 'מטמוני הדפים מתוך ה-PDF';
-$string['imagickrequired'] = 'רכיב PHP Imagemagick מוכרח להיות מותקן';
-
-$string['addusername'] = 'הוספת שם משתמש לכל תמונה';
-$string['addusername_explain'] = 'הוספת שם משתמש לכל תמונה מתוך ה-PDF';
 $string['addsiteaddress'] = 'הוספת שם האתר לכל תמונה';
 $string['addsiteaddress_explain'] = 'הוספת כתובת אתר לכל תמונה מתוך ה-PDF';
+$string['addusername'] = 'הוספת שם משתמש לכל תמונה';
+$string['addusername_explain'] = 'הוספת שם משתמש לכל תמונה מתוך ה-PDF';
+$string['allowdownload'] = 'אפשר הורדת PDF המקורי לתלמידים';
+$string['bottom'] = 'למטה';
+$string['cachedef_pages'] = 'מטמוני הדפים מתוך ה-PDF';
+$string['downloadpdf'] = 'הורדת PDF';
+$string['eventpage_view'] = 'נצפה עמוד מרכיב PDF מאובטח';
+$string['imagick_pdf_policy'] = 'יש לאפשר את ה-policy עבור קריאת PDF ב-ImageMagick - ראו https://stackoverflow.com/questions/52703123/override-default-imagemagick-policy-xml';
+$string['imagickrequired'] = 'רכיב PHP Imagemagick מוכרח להיות מותקן';
+$string['install_imagick'] = 'נדרש להתקין רכיב PHP-Imagick - אחרת אתה והתלמידים לא תוכלו לצפות בתוכן';
+$string['middle'] = 'באמצע';
+$string['modulename'] = 'PDF מאובטח';
+$string['modulename_help'] = 'השתמשו במודול PDF מאובטח כדי להגן על חומרי הלמידה שלכם, התלמיד לא יוכל להוריד את ה-PDF אלא רק יוצג לו עמוד בתצורת תמונה בכל צפייה בעמוד ללא אפשרות מקש ימני ושמירת התמונה.';
+$string['modulenameplural'] = 'PDF מאובטחים';
+$string['nocache'] = 'קיימת בעייה עם המטמון או עם מנגנון ההרצה - אנא פנו למנהל המערכת';
+$string['nocacheyet'] = 'לא נמצא מטמון לדפים כרגע - אנא המתינו....';
+$string['nofile'] = 'לא נמצא קובץ PDF';
+$string['nosuchpage'] = 'שגיאה - אין עמוד כזה...';
+$string['notallowedtodownload'] = 'לא מורשה להוריד את ה-PDF';
+$string['notapdf'] = 'הקובץ שהועלה אינו מסמך PDF תקין. ניתן להעלות רק קבצי PDF אמיתיים.';
+$string['page'] = 'עמוד';
+$string['pluginadministration'] = 'ניהול מנגנון PDF מאובטח';
+$string['pluginname'] = 'PDF מאובטח';
+$string['resolution'] = 'ברירת מחדל לרזולוציה של תמונה';
+$string['resolution_explain'] = 'דרך משתנה זה ניתן לשלוט באיכות התמונה שנוצרת מתוך ה-PDF, שימו לב שאם יש פה רזולוציה גבוהה - טעינת העמוד לצפייה איטית יותר.';
+$string['securepdf:addinstance'] = 'הוספת PDF מאובטח חדש';
+$string['securepdf:view'] = 'תצוגת PDF מאובטח';
+$string['showall'] = 'הצגת כל השקפים בעמוד אחד ארוך';
+$string['top'] = 'למעלה';
 $string['usernameposition'] = 'מיקום שם המשתמש ושם האתר בתמונה';
 $string['usernameposition_explain'] = 'מיקום שם המשתמש ושם האתר בתמונה';
-$string['top'] = 'למעלה';
-$string['bottom'] = 'למטה';
-$string['middle'] = 'באמצע';
-$string['showall'] = 'הצגת כל השקפים בעמוד אחד ארוך';
-$string['allowdownload'] = 'אפשר הורדת PDF המקורי לתלמידים';
-$string['downloadpdf'] = 'הורדת PDF';
-$string['notallowedtodownload'] = 'לא מורשה להוריד את ה-PDF';
-$string['nofile'] = 'לא נמצא קובץ PDF';
-$string['nocacheyet'] = 'לא נמצא מטמון לדפים כרגע - אנא המתינו....';
-$string['nocache'] = 'קיימת בעייה עם המטמון או עם מנגנון ההרצה - אנא פנו למנהל המערכת';
-$string['notapdf'] = 'הקובץ שהועלה אינו מסמך PDF תקין. ניתן להעלות רק קבצי PDF אמיתיים.';

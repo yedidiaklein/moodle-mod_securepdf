@@ -32,8 +32,10 @@ namespace mod_securepdf;
  */
 class view {
     /**
-     * Check if there is an exisiting cache on numpages and data.
+     * Check if there is an existing cache on numpages and data.
      *
+     * @param \cm_info|\stdClass $cm Course module.
+     * @param int $page Page number.
      * @return array
      */
     public static function checkcache($cm, $page) {

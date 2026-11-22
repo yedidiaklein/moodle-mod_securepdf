@@ -24,42 +24,36 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['modulename'] = 'Secure PDF';
-$string['modulenameplural'] = 'Secure PDFs';
-$string['modulename_help'] = 'Use the securepdf module for adding PDF files securely to your course. The student won\'t be able to download the pdf, It will be shown to him as image for page - without right click to save image';
-
-$string['securepdf:addinstance'] = 'Add a new securepdf';
-$string['securepdf:view'] = 'View securepdf';
-
-$string['pluginadministration'] = 'Secure PDF administration';
-$string['pluginname'] = 'Secure PDF';
-
-$string['eventpage_view'] = 'Secure PDF page viewed';
-
-$string['resolution'] = 'Default resolution of image';
-$string['resolution_explain'] = 'Set the resolution of image from PDF, as higher resolution you are using - the page will load slower';
-
-$string['page'] = 'Page';
-$string['nosuchpage'] = 'Error - No such page!';
-$string['install_imagick'] = 'PHP-Imagick need to be installed, otherwise you and student won\'t be able to see the content';
-$string['imagick_pdf_policy'] = 'You must set the policy of ImageMagick to allow PDF read. See https://stackoverflow.com/questions/52703123/override-default-imagemagick-policy-xml';
-$string['cachedef_pages'] = 'Pages from PDF cache';
-$string['imagickrequired'] = 'PHP Imagemagick extension is required';
-
-$string['addusername'] = 'Add username to each image';
-$string['addusername_explain'] = 'Add username to each image of the PDF';
 $string['addsiteaddress'] = 'Add site name to image';
 $string['addsiteaddress_explain'] = 'Add site name to each image of the PDF';
+$string['addusername'] = 'Add username to each image';
+$string['addusername_explain'] = 'Add username to each image of the PDF';
+$string['allowdownload'] = 'Allow download original PDF to students';
+$string['bottom'] = 'Bottom';
+$string['cachedef_pages'] = 'Pages from PDF cache';
+$string['downloadpdf'] = 'Download PDF';
+$string['eventpage_view'] = 'Secure PDF page viewed';
+$string['imagick_pdf_policy'] = 'You must set the policy of ImageMagick to allow PDF read. See https://stackoverflow.com/questions/52703123/override-default-imagemagick-policy-xml';
+$string['imagickrequired'] = 'PHP Imagemagick extension is required';
+$string['install_imagick'] = 'PHP-Imagick need to be installed, otherwise you and student won\'t be able to see the content';
+$string['middle'] = 'Middle';
+$string['modulename'] = 'Secure PDF';
+$string['modulename_help'] = 'Use the securepdf module for adding PDF files securely to your course. The student won\'t be able to download the pdf, It will be shown to him as image for page - without right click to save image';
+$string['modulenameplural'] = 'Secure PDFs';
+$string['nocache'] = 'There is a problem with the cache or with cron - please contact the administrator';
+$string['nocacheyet'] = 'No cache yet - Please wait...';
+$string['nofile'] = 'No file found';
+$string['nosuchpage'] = 'Error - No such page!';
+$string['notallowedtodownload'] = 'You are not allowed to download the PDF';
+$string['notapdf'] = 'The uploaded file is not a valid PDF document. Only real PDF files are accepted.';
+$string['page'] = 'Page';
+$string['pluginadministration'] = 'Secure PDF administration';
+$string['pluginname'] = 'Secure PDF';
+$string['resolution'] = 'Default resolution of image';
+$string['resolution_explain'] = 'Set the resolution of image from PDF, as higher resolution you are using - the page will load slower';
+$string['securepdf:addinstance'] = 'Add a new securepdf';
+$string['securepdf:view'] = 'View securepdf';
+$string['showall'] = 'Show all slides in one long page ';
+$string['top'] = 'Top';
 $string['usernameposition'] = 'Username and site name position';
 $string['usernameposition_explain'] = 'Set the position of username and site name on the image';
-$string['top'] = 'Top';
-$string['bottom'] = 'Bottom';
-$string['middle'] = 'Middle';
-$string['showall'] = 'Show all slides in one long page ';
-$string['allowdownload'] = 'Allow download original PDF to students';
-$string['downloadpdf'] = 'Download PDF';
-$string['notallowedtodownload'] = 'You are not allowed to download the PDF';
-$string['nofile'] = 'No file found';
-$string['nocacheyet'] = 'No cache yet - Please wait...';
-$string['nocache'] = 'There is a problem with the cache or with cron - please contact the administrator';
-$string['notapdf'] = 'The uploaded file is not a valid PDF document. Only real PDF files are accepted.';

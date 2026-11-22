@@ -41,6 +41,8 @@ class restore_securepdf_activity_structure_step extends restore_activity_structu
 
     /**
      * Restore securepdf.
+     *
+     * @param array|stdClass $data
      */
     protected function process_securepdf($data) {
         global $DB;
