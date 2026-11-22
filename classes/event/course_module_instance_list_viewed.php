@@ -25,7 +25,10 @@
 
 namespace mod_securepdf\event;
 
-defined('MOODLE_INTERNAL') || die();
-
+/**
+ * The course_module_instance_list_viewed event class.
+ *
+ * @package    mod_securepdf
+ */
 class course_module_instance_list_viewed extends \core\event\course_module_instance_list_viewed {
 }

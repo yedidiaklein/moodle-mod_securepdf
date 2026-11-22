@@ -35,7 +35,7 @@ $counter = optional_param('counter', 0, PARAM_INT);
 $settings = get_config('securepdf');
 
 $cm = get_coursemodule_from_id('securepdf', $id, 0, false, MUST_EXIST);
-$course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
+$course = $DB->get_record('course', ['id' => $cm->course], '*', MUST_EXIST);
 $context = context_module::instance($cm->id);
 $securepdf = new securepdf($context, $cm, $course);
 
@@ -44,8 +44,8 @@ require_capability('mod/securepdf:view', $context);
 
 $PAGE->set_pagelayout('incourse');
 
-$url = new moodle_url('/mod/securepdf/view.php', array('id' => $id));
-$PAGE->set_url('/mod/securepdf/view.php', array('id' => $cm->id));
+$url = new moodle_url('/mod/securepdf/view.php', ['id' => $id]);
+$PAGE->set_url('/mod/securepdf/view.php', ['id' => $cm->id]);
 
 if (!securepdf::check_imagick()) {
     echo $OUTPUT->header();
@@ -55,28 +55,29 @@ if (!securepdf::check_imagick()) {
 
 // Check if we want all pages in one long page.
 // Get data from securepdf table.
-$securepdfdata = $DB->get_record('securepdf', array('id' => $securepdf->get_instance()->id), '*', MUST_EXIST);
+$securepdfdata = $DB->get_record('securepdf', ['id' => $securepdf->get_instance()->id], '*', MUST_EXIST);
 $onepageview = $securepdfdata->onepageview;
 if ($onepageview) {
     echo $OUTPUT->header();
 
-    // check if we have to provide a download link of pdf
+    // Check if we have to provide a download link of pdf.
     if ($securepdfdata->allowdownload) {
         $downloadurl = $CFG->wwwroot . '/mod/securepdf/download.php?id=' . $id;
         // Create PDF icon using FontAwesome.
         $icon = '<i class="fa fa-file-pdf-o" aria-hidden="true" style="font-size: 36px;"></i>';
-        // Show PDF icon and link to download the PDF
+        // Show PDF icon and link to download the PDF.
         echo html_writer::link($downloadurl, $icon . ' ' . get_string('downloadpdf', 'mod_securepdf'), ['target' => '_blank']);
     }
 
     $cached = \mod_securepdf\view::checkcache($cm, 0);
     $numpages = $cached['numpages'];
-    if (!$numpages) { // No cache - Get page num only.
+    if (!$numpages) {
+        // No cache - Get page num only.
         echo '<br><br>' . get_string('nocacheyet', 'mod_securepdf');
         // Refresh every minutes.
         $PAGE->requires->js_call_amd('mod_securepdf/reload', 'init', ['counter']);
-        // Adhoc task for generating the cache of all pages
-        // This situation happen while cache was purged
+        // Adhoc task for generating the cache of all pages.
+        // This situation happen while cache was purged.
         $adhoccache = new \mod_securepdf\task\create_cache();
         $adhoccache->set_custom_data(['moduleid' => $cm->id]);
         \core\task\manager::queue_adhoc_task($adhoccache);
@@ -85,13 +86,15 @@ if ($onepageview) {
             $page = $i;
             $cached = \mod_securepdf\view::checkcache($cm, $page);
             $data = $cached['data'];
-            if (!$data) { // If there is not yet cache for this page.
+            if (!$data) {
+                // If there is not yet cache for this page.
                 echo '<br><br>' . get_string('nocacheyet', 'mod_securepdf');
                 // Refresh every minutes.
                 if ($counter < 3) {
                     $PAGE->requires->js_call_amd('mod_securepdf/reload', 'init', ['counter']);
-                } else if ($counter < 4) { // after 3 times - stop reloading and run the adhoc task
-                    // Adhoc task for generating the cache of all pages
+                } else if ($counter < 4) {
+                    // After 3 times - stop reloading and run the adhoc task.
+                    // Adhoc task for generating the cache of all pages.
                     $adhoccache = new \mod_securepdf\task\create_cache();
                     $adhoccache->set_custom_data(['moduleid' => $cm->id]);
                     \core\task\manager::queue_adhoc_task($adhoccache);
@@ -102,10 +105,12 @@ if ($onepageview) {
             }
             // Add watermark to image.
             $data = \mod_securepdf\view::addwatermark($data, $settings);
-            echo $OUTPUT->render_from_template('mod_securepdf/singleformulti',
-            [   'base64' => $data,
+            echo $OUTPUT->render_from_template(
+                'mod_securepdf/singleformulti',
+                [   'base64' => $data,
                 'page' => $page,
-            ]);
+                ]
+            );
         }
     }
 } else {
@@ -114,7 +119,7 @@ if ($onepageview) {
     // Update page views in table - in order to be able to set completion.
     $pageview = ['module' => $cm->id,
                 'userid' => $USER->id,
-                'page' => $page
+                'page' => $page,
                 ];
     $exist = $DB->get_record('securepdf_pageviews', $pageview);
     if ($exist) {
@@ -127,11 +132,11 @@ if ($onepageview) {
         $DB->insert_record('securepdf_pageviews', $pageview);
     }
 
-    $event = \mod_securepdf\event\page_view::create(array(
+    $event = \mod_securepdf\event\page_view::create([
         'objectid' => $securepdf->get_instance()->id,
         'context' => context_module::instance($cm->id),
-        'other' => $page + 1
-    ));
+        'other' => $page + 1,
+    ]);
     $event->trigger();
 
     $cached = \mod_securepdf\view::checkcache($cm, $page);
@@ -141,7 +146,7 @@ if ($onepageview) {
     // If there is no cache - we should parse the PDF and write cache.
     if (!$data || !$numpages) {
         // First call the adhoc task for generating the cache of all pages
-        // This situation happen while cache was purged
+        // This situation happen while cache was purged.
         // otherwise the cache is created on create/update resource.
         $adhoccache = new \mod_securepdf\task\create_cache();
         $adhoccache->set_custom_data(['moduleid' => $cm->id]);
@@ -170,12 +175,12 @@ if ($onepageview) {
 
     echo $OUTPUT->header();
 
-    // check if we have to provide a download link of pdf
+    // Check if we have to provide a download link of pdf.
     if ($securepdfdata->allowdownload) {
         $downloadurl = $CFG->wwwroot . '/mod/securepdf/download.php?id=' . $id;
         // Create PDF icon using FontAwesome.
         $icon = '<i class="fa fa-file-pdf-o" aria-hidden="true" style="font-size: 36px;"></i>';
-        // Show PDF icon and link to download the PDF
+        // Show PDF icon and link to download the PDF.
         echo html_writer::link($downloadurl, $icon . ' ' . get_string('downloadpdf', 'mod_securepdf'), ['target' => '_blank']);
     }
 
@@ -196,7 +201,8 @@ if ($onepageview) {
     // Add watermark to image.
     $base64 = \mod_securepdf\view::addwatermark($base64, $settings);
 
-    echo $OUTPUT->render_from_template('mod_securepdf/imageview',
+    echo $OUTPUT->render_from_template(
+        'mod_securepdf/imageview',
         [   'base64' => $base64,
             'page' => $page + 1,
             'total' => $numpages,
@@ -204,8 +210,9 @@ if ($onepageview) {
             'next' => $next,
             'previous' => $page,
             'nexturl' => $nexturl,
-            'previousurl' => $previousurl
-            ]);
+            'previousurl' => $previousurl,
+        ]
+    );
 }
 
 echo $OUTPUT->footer();

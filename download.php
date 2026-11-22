@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Download the original PDF (only when allowed in the activity settings).
+ *
  * @package    mod_securepdf
  * @copyright  2020 Yedidia Klein <yedidia@openapp.co.il>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -25,20 +27,20 @@ require('../../config.php');
 $id = required_param('id', PARAM_INT); // Module id.
 // get course id from module id.
 $cm = get_coursemodule_from_id('securepdf', $id, 0, false, MUST_EXIST);
-$course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
+$course = $DB->get_record('course', ['id' => $cm->course], '*', MUST_EXIST);
 $context = context_module::instance($cm->id);
 
 require_login($course, true, $cm);
 require_capability('mod/securepdf:view', $context);
-$securepdfdata = $DB->get_record('securepdf', array('id' => $cm->instance), '*', MUST_EXIST);
+$securepdfdata = $DB->get_record('securepdf', ['id' => $cm->instance], '*', MUST_EXIST);
 
 if (!$securepdfdata->allowdownload) {
-    print_error('notallowedtodownload', 'securepdf');
+    throw new moodle_exception('notallowedtodownload', 'securepdf');
 }
 $fs = get_file_storage();
 $files = $fs->get_area_files($context->id, 'mod_securepdf', 'content', 0, 'sortorder', false);
 if (empty($files)) {
-    print_error('nofiles', 'securepdf');
+    throw new moodle_exception('nofile', 'securepdf');
 }
 foreach ($files as $file) {
     if ($file->is_directory()) {
@@ -46,11 +48,11 @@ foreach ($files as $file) {
     }
     $pdfcontent = $file->get_content();
     $filename = $file->get_filename();
-    $filesize = $file->get_filesize();    
+    $filesize = $file->get_filesize();
     break;
 }
 if (empty($pdfcontent)) {
-    print_error('nofiles', 'securepdf');
+    throw new moodle_exception('nofile', 'securepdf');
 }
 header('Content-Type: application/pdf');
 header('Content-Disposition: attachment; filename="' . $filename . '"');
@@ -66,4 +68,3 @@ echo $pdfcontent;
 $DB->close();
 // Close the connection to the file storage.
 $fs->close();
-

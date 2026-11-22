@@ -15,30 +15,24 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Restore steps for mod_securepdf.
+ *
  * @package    mod_securepdf
  * @copyright  2020 Yedidia Klein <yedidia@openapp.co.il>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 /**
- * Define all the restore steps that will be used by the
- * restore_securepdf_activity_task.
- */
-
-defined('MOODLE_INTERNAL') || die();
-
-/**
  * Structure step to restore one securepdf activity.
  */
 class restore_securepdf_activity_structure_step extends restore_activity_structure_step {
-
     /**
      * Defines the backup structure.
      *
      * @return array
      */
     protected function define_structure() {
-        $paths = array();
+        $paths = [];
         $paths[] = new restore_path_element('securepdf', '/activity/securepdf');
 
         // Return the paths wrapped into standard activity structure.

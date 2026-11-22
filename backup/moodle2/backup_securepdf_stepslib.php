@@ -23,22 +23,26 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
-
 /**
  * Define the complete securepdf structure for backup, with file and id annotations
  */
 class backup_securepdf_activity_structure_step extends backup_activity_structure_step {
-
+    /**
+     * Define the backup structure.
+     *
+     * @return backup_nested_element
+     */
     protected function define_structure() {
         // Define each element separated.
-        $securepdf = new backup_nested_element('securepdf', array('id'), array(
+        $securepdf = new backup_nested_element('securepdf', ['id'], [
             'name', 'intro', 'introformat', 'inline',
-            'fileid', 'timecreated', 'timemodified'));
+            'fileid', 'timecreated', 'timemodified']);
 
         // Define sources.
-        $securepdf->set_source_table('securepdf',
-                                     array('id' => backup::VAR_ACTIVITYID));
+        $securepdf->set_source_table(
+            'securepdf',
+            ['id' => backup::VAR_ACTIVITYID]
+        );
 
         // Define file annotations.
         $securepdf->annotate_files('mod_securepdf', 'uploaded', null);

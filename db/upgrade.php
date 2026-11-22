@@ -29,8 +29,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Execute securepdf upgrade from the given old version
  *
@@ -42,9 +40,8 @@ function xmldb_securepdf_upgrade($oldversion) {
 
     $dbman = $DB->get_manager(); // Loads ddl manager and xmldb classes.
 
-    // add onepageview field to securepdf table.
+    // Add onepageview field to securepdf table.
     if ($oldversion < 2025050400) {
-
         // Define field onepageview to be added to securepdf.
         $table = new xmldb_table('securepdf');
         $field = new xmldb_field('onepageview', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0', 'introformat');
@@ -58,9 +55,8 @@ function xmldb_securepdf_upgrade($oldversion) {
         upgrade_mod_savepoint(true, 2025050400, 'securepdf');
     }
 
-       // add onepageview field to securepdf table.
-       if ($oldversion < 2025070500) {
-
+       // Add onepageview field to securepdf table.
+    if ($oldversion < 2025070500) {
         // Define field onepageview to be added to securepdf.
         $table = new xmldb_table('securepdf');
         $field = new xmldb_field('allowdownload', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0', 'onepageview');

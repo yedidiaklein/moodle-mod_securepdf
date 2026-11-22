@@ -22,8 +22,6 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Standard base class for mod_securepdf.
  */
@@ -98,7 +96,7 @@ class securepdf {
 
         $context = context_module::instance($cmid);
         if ($draftitemid) {
-            $options = array('subdirs' => false);
+            $options = ['subdirs' => false];
             file_save_draft_area_files($draftitemid, $context->id, 'mod_securepdf', 'content', 0, $options);
         }
         self::validate_area_files($context);
@@ -125,16 +123,20 @@ class securepdf {
         }
 
         $returnid = $DB->insert_record('securepdf', $add);
-        $this->instance = $DB->get_record('securepdf',
-                                          array('id' => $returnid),
-                                          '*',
-                                          MUST_EXIST);
+        $this->instance = $DB->get_record(
+            'securepdf',
+            ['id' => $returnid],
+            '*',
+            MUST_EXIST
+        );
 
         // Cache the course record.
-        $this->course = $DB->get_record('course',
-                                        array('id' => $formdata->course),
-                                        '*',
-                                        MUST_EXIST);
+        $this->course = $DB->get_record(
+            'course',
+            ['id' => $formdata->course],
+            '*',
+            MUST_EXIST
+        );
 
         return $returnid;
     }
@@ -150,20 +152,20 @@ class securepdf {
 
         // Delete files associated with this securepdf.
         $fs = get_file_storage();
-        if (! $fs->delete_area_files($this->context->id) ) {
+        if (! $fs->delete_area_files($this->context->id)) {
             $result = false;
         }
 
         $cmid = $this->get_instance()->id;
         // Delete the instance.
         // Note: all context files are deleted automatically.
-        $DB->delete_records('securepdf', array('id' => $cmid));
+        $DB->delete_records('securepdf', ['id' => $cmid]);
 
         // Delete pages cache.
         $cache = cache::make('mod_securepdf', 'pages');
         $numpages = $cache->get($cmid);
         if ($numpages) {
-            for ($i = 0; $i++; $i < $numpages) {
+            for ($i = 0; $i < $numpages; $i++) {
                 $cache->delete($cmid . '_' . $i);
             }
             $cache->delete($cmid);
@@ -186,7 +188,7 @@ class securepdf {
 
         $context = context_module::instance($cmid);
         if ($draftitemid) {
-            $options = array('subdirs' => false);
+            $options = ['subdirs' => false];
             file_save_draft_area_files($draftitemid, $context->id, 'mod_securepdf', 'content', 0, $options);
         }
         self::validate_area_files($context);
@@ -209,19 +211,20 @@ class securepdf {
         } else {
             $update->allowdownload = 0;
         }
-        
 
         $result = $DB->update_record('securepdf', $update);
-        $this->instance = $DB->get_record('securepdf',
-                                          array('id' => $update->id),
-                                          '*',
-                                          MUST_EXIST);
+        $this->instance = $DB->get_record(
+            'securepdf',
+            ['id' => $update->id],
+            '*',
+            MUST_EXIST
+        );
 
         // Delete pages cache for cases that file was changed.
         $cache = cache::make('mod_securepdf', 'pages');
         $numpages = $cache->get($cmid);
         if ($numpages) {
-            for ($i = 0; $i++; $i < $numpages) {
+            for ($i = 0; $i < $numpages; $i++) {
                 $cache->delete($cmid . '_' . $i);
             }
             $cache->delete($cmid);
@@ -281,7 +284,7 @@ class securepdf {
             return $this->instance;
         }
         if ($this->get_course_module()) {
-            $params = array('id' => $this->get_course_module()->instance);
+            $params = ['id' => $this->get_course_module()->instance];
             $this->instance = $DB->get_record('securepdf', $params, '*', MUST_EXIST);
         }
         if (!$this->instance) {
@@ -322,11 +325,13 @@ class securepdf {
         }
 
         if ($this->context->contextlevel == CONTEXT_MODULE) {
-            $this->coursemodule = get_coursemodule_from_id('securepdf',
-                                                           $this->context->instanceid,
-                                                           0,
-                                                           false,
-                                                           MUST_EXIST);
+            $this->coursemodule = get_coursemodule_from_id(
+                'securepdf',
+                $this->context->instanceid,
+                0,
+                false,
+                MUST_EXIST
+            );
             return $this->coursemodule;
         }
         return null;
@@ -356,7 +361,7 @@ class securepdf {
         if (!$this->context) {
             return null;
         }
-        $params = array('id' => $this->get_course_context()->instanceid);
+        $params = ['id' => $this->get_course_context()->instanceid];
         $this->course = $DB->get_record('course', $params, '*', MUST_EXIST);
 
         return $this->course;
@@ -379,9 +384,8 @@ class securepdf {
     /**
      * Util function to check if needed php-imagick is installed.
      *
-     * @return true if installed, false if not.
+     * @return bool true if installed, false if not.
      */
-
     public static function check_imagick() {
         $ext = get_loaded_extensions();
         if (!array_search('imagick', $ext)) {

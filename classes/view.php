@@ -22,9 +22,8 @@
  * @since      Moodle 3.1
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-namespace mod_securepdf;
 
-defined('MOODLE_INTERNAL') || die();
+namespace mod_securepdf;
 
 /**
  * Class view
@@ -102,7 +101,7 @@ class view {
             $base64 = base64_encode($img);
             // Cache the image.
             $result = $cache->set($cm->id . '_' . $page, $base64);
-        } 
+        }
         $im->destroy();
         return ['numpages' => $numpages, 'data' => $base64];
     }
@@ -157,5 +156,4 @@ class view {
         }
         return $base64;
     }
-
 }

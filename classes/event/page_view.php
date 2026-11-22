@@ -21,23 +21,38 @@
  * @copyright  2017 Yedidia@openapp.co.il
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 namespace mod_securepdf\event;
-defined('MOODLE_INTERNAL') || die();
+
 /**
  * The page_view event class.
  *
- **/
+ * @package    mod_securepdf
+ */
 class page_view extends \core\event\base {
+    /**
+     * Init method.
+     */
     protected function init() {
         $this->data['crud'] = 'r';
         $this->data['edulevel'] = self::LEVEL_PARTICIPATING;
         $this->data['objecttable'] = 'securepdf';
     }
 
+    /**
+     * Event name.
+     *
+     * @return string
+     */
     public static function get_name() {
-            return get_string('eventpage_view', 'securepdf');
+        return get_string('eventpage_view', 'securepdf');
     }
 
+    /**
+     * Event description.
+     *
+     * @return string
+     */
     public function get_description() {
         if ($this->other != "") {
             return "The user with id {$this->userid} Viewed page : <b>{$this->other}</b> on module id {$this->objectid}.";
@@ -46,7 +61,12 @@ class page_view extends \core\event\base {
         }
     }
 
+    /**
+     * Related URL.
+     *
+     * @return \moodle_url
+     */
     public function get_url() {
-        return new \moodle_url('/mod/securepdf/view.php', array('id' => $this->contextinstanceid));
+        return new \moodle_url('/mod/securepdf/view.php', ['id' => $this->contextinstanceid]);
     }
 }

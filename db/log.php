@@ -24,9 +24,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$logs = array(
-    array('module' => 'securepdf', 'action' => 'add', 'mtable' => 'securepdf', 'field' => 'name'),
-    array('module' => 'securepdf', 'action' => 'update', 'mtable' => 'securepdf', 'field' => 'name'),
-    array('module' => 'securepdf', 'action' => 'view', 'mtable' => 'securepdf', 'field' => 'name'),
-    array('module' => 'securepdf', 'action' => 'view all', 'mtable' => 'securepdf', 'field' => 'name')
-);
+$logs = [
+    ['module' => 'securepdf', 'action' => 'add', 'mtable' => 'securepdf', 'field' => 'name'],
+    ['module' => 'securepdf', 'action' => 'update', 'mtable' => 'securepdf', 'field' => 'name'],
+    ['module' => 'securepdf', 'action' => 'view', 'mtable' => 'securepdf', 'field' => 'name'],
+    ['module' => 'securepdf', 'action' => 'view all', 'mtable' => 'securepdf', 'field' => 'name'],
+];

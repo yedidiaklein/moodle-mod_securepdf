@@ -27,5 +27,5 @@ defined('MOODLE_INTERNAL') || die;
 $definitions = [
     'pages' => [
         'mode' => cache_store::MODE_APPLICATION,
-    ]
+    ],
 ];

@@ -31,7 +31,6 @@ require_once($CFG->dirroot .
  * Provides the steps to perform one complete backup of the securepdf instance
  */
 class backup_securepdf_activity_task extends backup_activity_task {
-
     /**
      * Define (add) particular settings this activity can have
      */
@@ -46,8 +45,11 @@ class backup_securepdf_activity_task extends backup_activity_task {
      */
     protected function define_my_steps() {
         $this->add_step(
-            new backup_securepdf_activity_structure_step('securepdf_structure',
-                                                         'securepdf.xml'));
+            new backup_securepdf_activity_structure_step(
+                'securepdf_structure',
+                'securepdf.xml'
+            )
+        );
     }
 
     /**
@@ -59,7 +61,7 @@ class backup_securepdf_activity_task extends backup_activity_task {
      *                        to the activity instance scripts
      * @return string The content with the URLs encoded
      */
-    static public function encode_content_links($content) {
+    public static function encode_content_links($content) {
         global $CFG;
 
         $base = preg_quote($CFG->wwwroot, "/");

@@ -28,6 +28,9 @@ defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot .
              '/mod/securepdf/backup/moodle2/restore_securepdf_stepslib.php');
 
+/**
+ * Restore task for mod_securepdf.
+ */
 class restore_securepdf_activity_task extends restore_activity_task {
     /**
      * Define (add) particular settings this activity can have.
@@ -41,8 +44,11 @@ class restore_securepdf_activity_task extends restore_activity_task {
      */
     protected function define_my_steps() {
         $this->add_step(
-            new restore_securepdf_activity_structure_step('securepdf_structure',
-                                                          'securepdf.xml'));
+            new restore_securepdf_activity_structure_step(
+                'securepdf_structure',
+                'securepdf.xml'
+            )
+        );
     }
 
     /**
@@ -51,11 +57,13 @@ class restore_securepdf_activity_task extends restore_activity_task {
      *
      * @return array
      */
-    static public function define_decode_contents() {
-        $contents = array();
-        $contents[] = new restore_decode_content('securepdf',
-                                                 array('intro'),
-                                                 'securepdf');
+    public static function define_decode_contents() {
+        $contents = [];
+        $contents[] = new restore_decode_content(
+            'securepdf',
+            ['intro'],
+            'securepdf'
+        );
         return $contents;
     }
 
@@ -65,14 +73,18 @@ class restore_securepdf_activity_task extends restore_activity_task {
      *
      * @return array
      */
-    static public function define_decode_rules() {
-        $rules = array();
-        $rules[] = new restore_decode_rule('SECUREPDFVIEWBYID',
-                                           '/mod/securepdf/view.php?id=$1',
-                                           'course_module');
-        $rules[] = new restore_decode_rule('SECUREPDFINDEX',
-                                           '/mod/securepdf/index.php?id=$1',
-                                           'course');
+    public static function define_decode_rules() {
+        $rules = [];
+        $rules[] = new restore_decode_rule(
+            'SECUREPDFVIEWBYID',
+            '/mod/securepdf/view.php?id=$1',
+            'course_module'
+        );
+        $rules[] = new restore_decode_rule(
+            'SECUREPDFINDEX',
+            '/mod/securepdf/index.php?id=$1',
+            'course'
+        );
         return $rules;
     }
 
@@ -83,20 +95,26 @@ class restore_securepdf_activity_task extends restore_activity_task {
      *
      * @return array
      */
-    static public function define_restore_log_rules() {
-        $rules = array();
-        $rules[] = new restore_log_rule('securepdf',
-                                        'add',
-                                        'view.php?id={course_module}',
-                                        '{securepdf}');
-        $rules[] = new restore_log_rule('securepdf',
-                                        'update',
-                                        'view.php?id={course_module}',
-                                        '{securepdf}');
-        $rules[] = new restore_log_rule('securepdf',
-                                        'view',
-                                        'view.php?id={course_module}',
-                                        '{securepdf}');
+    public static function define_restore_log_rules() {
+        $rules = [];
+        $rules[] = new restore_log_rule(
+            'securepdf',
+            'add',
+            'view.php?id={course_module}',
+            '{securepdf}'
+        );
+        $rules[] = new restore_log_rule(
+            'securepdf',
+            'update',
+            'view.php?id={course_module}',
+            '{securepdf}'
+        );
+        $rules[] = new restore_log_rule(
+            'securepdf',
+            'view',
+            'view.php?id={course_module}',
+            '{securepdf}'
+        );
         return $rules;
     }
 
@@ -111,12 +129,14 @@ class restore_securepdf_activity_task extends restore_activity_task {
      *
      * @return array
      */
-    static public function define_restore_log_rules_for_course() {
-        $rules = array();
-        $rules[] = new restore_log_rule('securepdf',
-                                        'view all',
-                                        'index.php?id={course}',
-                                        null);
+    public static function define_restore_log_rules_for_course() {
+        $rules = [];
+        $rules[] = new restore_log_rule(
+            'securepdf',
+            'view all',
+            'index.php?id={course}',
+            null
+        );
         return $rules;
     }
 }

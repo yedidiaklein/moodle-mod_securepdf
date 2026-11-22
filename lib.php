@@ -29,8 +29,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Returns whether the module supports a feature or not.
  *
@@ -71,8 +69,10 @@ function securepdf_supports($feature) {
  * @param mod_securepdf_mod_form $form
  * @return int The instance id of the new securepdf instance
  */
-function securepdf_add_instance(stdClass $data,
-                                mod_securepdf_mod_form $form = null) {
+function securepdf_add_instance(
+    stdClass $data,
+    mod_securepdf_mod_form $form = null
+) {
     require_once(dirname(__FILE__) . '/locallib.php');
 
     $context = context_module::instance($data->coursemodule);
@@ -97,8 +97,10 @@ function securepdf_add_instance(stdClass $data,
  * @param mod_securepdf_mod_form $form
  * @return boolean
  */
-function securepdf_update_instance(stdClass $data,
-                                   mod_securepdf_mod_form $form = null) {
+function securepdf_update_instance(
+    stdClass $data,
+    mod_securepdf_mod_form $form = null
+) {
     require_once(dirname(__FILE__) . '/locallib.php');
 
     $context = context_module::instance($data->coursemodule);
@@ -143,11 +145,12 @@ function securepdf_user_outline($course, $user, $mod, $securepdf) {
 
     $logs = $DB->get_records(
         'log',
-        array('userid' => $user->id,
+        ['userid' => $user->id,
               'module' => 'securepdf',
               'action' => 'view',
-              'info' => $securepdf->id),
-        'time ASC');
+              'info' => $securepdf->id],
+        'time ASC'
+    );
     if ($logs) {
         $numviews = count($logs);
         $lastlog = array_pop($logs);
@@ -176,11 +179,12 @@ function securepdf_user_complete($course, $user, $mod, $securepdf) {
 
     $logs = $DB->get_records(
         'log',
-        array('userid' => $user->id,
+        ['userid' => $user->id,
               'module' => 'securepdf',
               'action' => 'view',
-              'info' => $securepdf->id),
-        'time ASC');
+              'info' => $securepdf->id],
+        'time ASC'
+    );
 
     if ($logs) {
         $numviews = count($logs);
@@ -189,7 +193,7 @@ function securepdf_user_complete($course, $user, $mod, $securepdf) {
         $strmostrecently = get_string('mostrecently');
         $strnumviews = get_string('numviews', '', $numviews);
 
-        echo "$strnumviews - $strmostrecently ".userdate($lastlog->time);
+        echo "$strnumviews - $strmostrecently " . userdate($lastlog->time);
     } else {
         print_string('neverseen', 'securepdf');
     }
@@ -201,7 +205,7 @@ function securepdf_user_complete($course, $user, $mod, $securepdf) {
  * @return array Array of capability strings
  */
 function securepdf_get_extra_capabilities() {
-    return array('moodle/site:accessallgroups');
+    return ['moodle/site:accessallgroups'];
 }
 
 /**
@@ -218,7 +222,7 @@ function securepdf_get_extra_capabilities() {
 function securepdf_get_coursemodule_info($coursemodule) {
     global $PAGE, $DB, $OUTPUT, $CFG;
 
-    $dbparams = array('id' => $coursemodule->instance);
+    $dbparams = ['id' => $coursemodule->instance];
     $fields = 'id, name, intro, introformat, fileid';
 
     if (!$securepdf = $DB->get_record('securepdf', $dbparams, $fields)) {
@@ -232,10 +236,12 @@ function securepdf_get_coursemodule_info($coursemodule) {
     if ($coursemodule->showdescription) {
         // Convert intro to html.
         // Do not filter cached version, filters run at display time.
-        $result->content = format_module_intro('securepdf',
-                                               $securepdf,
-                                               $coursemodule->id,
-                                               false);
+        $result->content = format_module_intro(
+            'securepdf',
+            $securepdf,
+            $coursemodule->id,
+            false
+        );
     }
 
     return $result;
@@ -246,12 +252,10 @@ function securepdf_get_coursemodule_info($coursemodule) {
  *
  * @return array
  *
- * @catgory  code
- *
  * @since   0.0.1
  */
 function securepdf_get_view_actions() {
-    return array('view', 'view help');
+    return ['view', 'view help'];
 }
 
 /**
@@ -259,7 +263,7 @@ function securepdf_get_view_actions() {
  * @return array
  */
 function securepdf_get_post_actions() {
-    return array('update', 'add');
+    return ['update', 'add'];
 }
 
 /**
@@ -274,9 +278,9 @@ function securepdf_get_post_actions() {
  * @return array Array of [(string)filearea] => (string)description]
  */
 function securepdf_get_file_areas($course, $cm, $context) {
-    return array(
+    return [
         'uploaded' => get_string('filearea_uploaded', 'securepdf'),
-    );
+    ];
 }
 
 /**
@@ -293,15 +297,17 @@ function securepdf_get_file_areas($course, $cm, $context) {
  * @param string $filename File name
  * @return file_info Instance or null if not found
  */
-function securepdf_get_file_info($browser,
-                                 $areas,
-                                 $course,
-                                 $cm,
-                                 $context,
-                                 $filearea,
-                                 $itemid,
-                                 $filepath,
-                                 $filename) {
+function securepdf_get_file_info(
+    $browser,
+    $areas,
+    $course,
+    $cm,
+    $context,
+    $filearea,
+    $itemid,
+    $filepath,
+    $filename
+) {
     global $CFG;
 
     if ($context->contextlevel != CONTEXT_MODULE) {
@@ -319,31 +325,37 @@ function securepdf_get_file_info($browser,
     }
 
     $fs = get_file_storage();
-    if ($filearea === 'uploaded' ) {
+    if ($filearea === 'uploaded') {
         $filepath = is_null($filepath) ? '/' : $filepath;
         $filename = is_null($filename) ? '.' : $filename;
 
-        if (!$storedfile = $fs->get_file($context->id,
-                                         'mod_securepdf',
-                                         $filearea,
-                                         0,
-                                         $filepath,
-                                         $filename)) {
+        if (
+            !$storedfile = $fs->get_file(
+                $context->id,
+                'mod_securepdf',
+                $filearea,
+                0,
+                $filepath,
+                $filename
+            )
+        ) {
             // Not found.
             return null;
         }
 
         $urlbase = $CFG->wwwroot . '/pluginfile.php';
 
-        return new file_info_stored($browser,
-                                    $context,
-                                    $storedfile,
-                                    $urlbase,
-                                    $areas[$filearea],
-                                    false,
-                                    true,
-                                    true,
-                                    false);
+        return new file_info_stored(
+            $browser,
+            $context,
+            $storedfile,
+            $urlbase,
+            $areas[$filearea],
+            false,
+            true,
+            true,
+            false
+        );
     }
 
     // Not found.
@@ -363,13 +375,15 @@ function securepdf_get_file_info($browser,
  * @return bool False if file not found, does not return if found -
  *              just sends the file
  */
-function securepdf_pluginfile($course,
-                              $cm,
-                              $context,
-                              $filearea,
-                              array $args,
-                              $forcedownload,
-                              array $options=array()) {
+function securepdf_pluginfile(
+    $course,
+    $cm,
+    $context,
+    $filearea,
+    array $args,
+    $forcedownload,
+    array $options = []
+) {
     global $CFG, $DB, $USER;
 
     require_once(dirname(__FILE__) . '/locallib.php');
@@ -410,5 +424,5 @@ function securepdf_pluginfile($course,
  * @return array Status array
  */
 function securepdf_reset_userdata($data) {
-    return array();
+    return [];
 }

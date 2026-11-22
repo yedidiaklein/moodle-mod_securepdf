@@ -31,6 +31,9 @@ require_once($CFG->dirroot . '/course/moodleform_mod.php');
 require_once(dirname(__FILE__) . '/locallib.php');
 require_once($CFG->libdir . '/filelib.php');
 
+/**
+ * Activity settings form for mod_securepdf.
+ */
 class mod_securepdf_mod_form extends moodleform_mod {
     /**
      * Defines the securepdf instance configuration form.
@@ -46,21 +49,23 @@ class mod_securepdf_mod_form extends moodleform_mod {
 
         // Name and description fields.
         $mform->addElement('header', 'general', get_string('general', 'form'));
-        $mform->addElement('text', 'name', get_string('name'), array('size' => '48'));
+        $mform->addElement('text', 'name', get_string('name'), ['size' => '48']);
         if (!empty($CFG->formatstringstriptags)) {
             $mform->setType('name', PARAM_TEXT);
         } else {
             $mform->setType('name', PARAM_CLEANHTML);
         }
         $mform->addRule('name', null, 'required', null, 'client');
-        $mform->addRule('name',
-                        get_string('maximumchars', '', 255),
-                        'maxlength',
-                        255,
-                        'client');
+        $mform->addRule(
+            'name',
+            get_string('maximumchars', '', 255),
+            'maxlength',
+            255,
+            'client'
+        );
         moodleform_mod::standard_intro_elements();
 
-        $filemanageroptions = array();
+        $filemanageroptions = [];
         $filemanageroptions['accepted_types'] = ['.pdf'];
         $filemanageroptions['maxbytes'] = 0;
         $filemanageroptions['maxfiles'] = 1;
@@ -68,11 +73,11 @@ class mod_securepdf_mod_form extends moodleform_mod {
 
         $mform->addElement('filemanager', 'uploaded', get_string('selectfiles'), null, $filemanageroptions);
 
-        // Add a checkbox to allow the user to select if they want to show all slides in a single page
+        // Add a checkbox to allow the user to select if they want to show all slides in a single page.
         $mform->addElement('checkbox', 'onepageview', get_string('showall', 'securepdf'));
         $mform->setDefault('onepageview', 0);
 
-        // Add a checkbox to allowdownload the file
+        // Add a checkbox to allow downloading the file.
         $mform->addElement('checkbox', 'allowdownload', get_string('allowdownload', 'securepdf'));
         $mform->setDefault('allowdownload', 0);
 
@@ -92,10 +97,9 @@ class mod_securepdf_mod_form extends moodleform_mod {
     public function data_preprocessing(&$defaultvalues) {
         if ($this->current->instance) {
             $draftitemid = file_get_submitted_draft_itemid('uploaded');
-            file_prepare_draft_area($draftitemid, $this->context->id, 'mod_securepdf', 'content', 0, array('subdirs' => true));
+            file_prepare_draft_area($draftitemid, $this->context->id, 'mod_securepdf', 'content', 0, ['subdirs' => true]);
             $defaultvalues['uploaded'] = $draftitemid;
         }
-
     }
 
     /**
